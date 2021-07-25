@@ -1,4 +1,4 @@
-module Control.Functor where
+module Category.Functor where
 
 open import Data.Type
 

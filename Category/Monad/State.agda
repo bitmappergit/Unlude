@@ -1,12 +1,12 @@
-module Control.Monad.State where
+module Category.Monad.State where
 
 open import Data.Type
 open import Data.Function
-open import Control.Functor
-open import Control.Applicative
-open import Control.Monad
+open import Category.Functor
+open import Category.Applicative
+open import Category.Monad
 open import Data.Product
-open import Control.Monad.Identity
+open import Category.Monad.Identity
 open import Data.Unit
 open import Control.Lens
 open import Algebra.Semiring

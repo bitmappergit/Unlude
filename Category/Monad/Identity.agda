@@ -1,9 +1,9 @@
-module Control.Monad.Identity where
+module Category.Monad.Identity where
 
 open import Data.Type
-open import Control.Functor
-open import Control.Applicative
-open import Control.Monad
+open import Category.Functor
+open import Category.Applicative
+open import Category.Monad
 
 record Identity {ℓ} (A : Type ℓ) : Type ℓ where
   constructor mkIdentity

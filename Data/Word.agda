@@ -4,7 +4,7 @@ open import Data.Type
 open import Data.Vec
 open import Data.Bool
 open import Data.Function
-open import Control.Functor
+open import Category.Functor
 open import Data.Num
 open import Data.Nat
 open import Algebra.Semiring

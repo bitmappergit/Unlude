@@ -2,10 +2,10 @@ module Control.Lens where
 
 open import Data.Type
 open import Data.Function
-open import Control.Functor
-open import Control.Monad.Identity
-open import Control.Monad.Const
-open import Control.Functor.Profunctor
+open import Category.Functor
+open import Category.Monad.Identity
+open import Category.Monad.Const
+open import Category.Functor.Profunctor
 
 record Exchange {ℓ} (A B S T : Type ℓ) : Type ℓ where
   constructor exchange

@@ -1,9 +1,9 @@
-module Control.Monad where
+module Category.Monad where
 
 open import Data.Type
 open import Data.Function
-open import Control.Functor
-open import Control.Applicative
+open import Category.Functor
+open import Category.Applicative
 
 record Monad {ℓ₁ ℓ₂} (M : Type ℓ₁ → Type ℓ₂) : Type (lsuc (ℓ₁ ⊔ ℓ₂)) where
   infixl 1 _>>=_ _>>_

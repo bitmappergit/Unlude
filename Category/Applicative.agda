@@ -1,7 +1,7 @@
-module Control.Applicative where
+module Category.Applicative where
 
 open import Data.Type
-open import Control.Functor
+open import Category.Functor
 
 record Applicative {ℓ₁ ℓ₂} (F : Type ℓ₁ → Type ℓ₂) : Type (lsuc (ℓ₁ ⊔ ℓ₂)) where
   infixl 4 _<*>_

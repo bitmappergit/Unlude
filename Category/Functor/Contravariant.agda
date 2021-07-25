@@ -1,4 +1,4 @@
-module Control.Functor.Contravariant where
+module Category.Functor.Contravariant where
 
 open import Data.Type
 

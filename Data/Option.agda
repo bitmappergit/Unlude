@@ -1,9 +1,9 @@
 module Data.Option where
 
 open import Data.Type
-open import Control.Functor
-open import Control.Applicative
-open import Control.Monad
+open import Category.Functor
+open import Category.Applicative
+open import Category.Monad
 
 data Option {ℓ} (A : Type ℓ) : Type ℓ where
   some : A → Option A

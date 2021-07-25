@@ -1,4 +1,4 @@
-module Control.Functor.Bimap where
+module Category.Functor.Bimap where
 
 open import Data.Type
 

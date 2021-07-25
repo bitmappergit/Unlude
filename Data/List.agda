@@ -2,7 +2,7 @@ module Data.List where
 
 open import Data.Type
 open import Data.Option
-open import Control.Functor
+open import Category.Functor
 open import Algebra.Semigroup
 open import Algebra.Monoid
 

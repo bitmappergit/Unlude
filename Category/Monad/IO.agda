@@ -1,9 +1,9 @@
-module Control.Monad.IO where
+module Category.Monad.IO where
 
 open import Data.Type
-open import Control.Functor
-open import Control.Applicative
-open import Control.Monad
+open import Category.Functor
+open import Category.Applicative
+open import Category.Monad
 open import Data.String
 open import Data.Unit
 open import Data.List
