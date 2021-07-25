@@ -1,4 +1,4 @@
-module Class.Num where
+module Data.Num where
 
 open import Data.Type
 open import Data.Function

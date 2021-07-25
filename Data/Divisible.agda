@@ -1,4 +1,4 @@
-module Class.Divisible where
+module Data.Divisible where
 
 open import Data.Type
 

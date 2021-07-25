@@ -7,7 +7,7 @@ open import Data.List
 open import Data.Char
 open import Algebra.Semigroup
 open import Algebra.Monoid
-open import Class.Eq
+open import Data.Eq
 
 postulate String : Type
 

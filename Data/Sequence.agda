@@ -1,4 +1,4 @@
-module Class.Sequence where
+module Data.Sequence where
 
 open import Data.Type
 

@@ -3,10 +3,10 @@ module Data.Nat where
 open import Data.Type
 open import Data.Function
 open import Algebra.Semiring
-open import Class.Divisible
+open import Data.Divisible
 open import Data.Bool
-open import Class.Eq
-open import Class.Ord
+open import Data.Eq
+open import Data.Ord
 
 data Nat : Type where
   suc : Nat → Nat

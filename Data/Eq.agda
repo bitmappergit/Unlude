@@ -1,4 +1,4 @@
-module Class.Eq where
+module Data.Eq where
 
 open import Data.Type
 open import Data.Bool

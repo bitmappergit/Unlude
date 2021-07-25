@@ -1,9 +1,9 @@
-module Class.Negative where
+module Data.Negative where
 
 open import Data.Type
 open import Algebra.Semiring
 open import Algebra.Ring
-open import Class.Num
+open import Data.Num
 open import Data.Nat
 
 record Negative {ℓ} (A : Type ℓ) : Type ℓ where

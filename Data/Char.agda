@@ -3,7 +3,7 @@ module Data.Char where
 open import Data.Type
 open import Data.Nat
 open import Data.Bool
-open import Class.Eq
+open import Data.Eq
 
 postulate Char : Type
 

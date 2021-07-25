@@ -19,18 +19,20 @@ open import Data.String public
 open import Data.Nat public
 open import Data.Word public
 
-open import Category.Functor public
-open import Category.Functor.Contravariant public
-open import Category.Functor.Bimap public
-open import Category.Functor.Profunctor public
+open import Control.Functor public
+open import Control.Functor.Contravariant public
+open import Control.Functor.Bimap public
+open import Control.Functor.Profunctor public
 
-open import Category.Applicative public
+open import Control.Applicative public
 
-open import Category.Monad public
-open import Category.Monad.Identity public
-open import Category.Monad.Const public
-open import Category.Monad.State public
-open import Category.Monad.IO public
+open import Control.Monad public
+open import Control.Monad.Identity public
+open import Control.Monad.Const public
+open import Control.Monad.State public
+open import Control.Monad.IO public
+
+open import Control.Lens public
 
 open import Algebra.Semiring public
 open import Algebra.Ring public
@@ -38,16 +40,14 @@ open import Algebra.Ring public
 open import Algebra.Semigroup public
 open import Algebra.Monoid public
 
-open import Class.Num public
-open import Class.Negative public
-open import Class.Divisible public
+open import Data.Num public
+open import Data.Negative public
+open import Data.Divisible public
 
-open import Class.Eq public
-open import Class.Ord public
+open import Data.Eq public
+open import Data.Ord public
 
-open import Class.Sequence public
+open import Data.Sequence public
 
 open import Relation.Equality public
 open import Relation.Negation public
-
-open import Control.Lens public

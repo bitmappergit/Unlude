@@ -4,15 +4,15 @@ open import Data.Type
 open import Data.Vec
 open import Data.Bool
 open import Data.Function
-open import Category.Functor
-open import Class.Num
+open import Control.Functor
+open import Data.Num
 open import Data.Nat
 open import Algebra.Semiring
 open import Algebra.Ring
-open import Class.Divisible
-open import Class.Negative
-open import Class.Eq
-open import Class.Ord
+open import Data.Divisible
+open import Data.Negative
+open import Data.Eq
+open import Data.Ord
 
 Word : Nat → Type
 Word = Vec Bool

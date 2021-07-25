@@ -3,7 +3,7 @@ module Data.Vec where
 open import Data.Type
 
 open import Data.Nat
-open import Category.Functor
+open import Control.Functor
 open import Algebra.Semiring
 open import Data.Function
 open import Algebra.Semigroup
