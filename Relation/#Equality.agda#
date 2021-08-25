@@ -36,3 +36,5 @@ record DecEq {ℓ} (A : Type ℓ) : Type ℓ where
   field _≟_ : (x : A) → (y : A) → Dec (x ≡ y)
 
 open DecEq ⦃ ... ⦄ public
+
+record DecOrd {ℓ} (A : Type ℓ) : Type ℓ where

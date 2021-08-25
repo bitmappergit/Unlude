@@ -25,4 +25,4 @@ primitive primCharEquality : Char → Char → Bool
 
 instance EqChar : Eq Char
 
-EqChar. _==_ = primCharEquality
+EqChar. _≡ᵇ_ = primCharEquality

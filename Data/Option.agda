@@ -4,10 +4,7 @@ open import Data.Type
 open import Category.Functor
 open import Category.Applicative
 open import Category.Monad
-
-data Option {ℓ} (A : Type ℓ) : Type ℓ where
-  some : A → Option A
-  none : Option A
+open import Data.Core using (Option; some; none) public
 
 instance FunctorOption : ∀ {ℓ} → Functor {ℓ} Option
 

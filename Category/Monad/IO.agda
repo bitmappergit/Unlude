@@ -9,6 +9,7 @@ open import Data.Unit
 open import Data.List
 open import Algebra.Semigroup
 open import Algebra.Monoid
+open import Data.Core using (Nat)
 
 postulate IO : ∀ {ℓ} → Type ℓ → Type ℓ
 
@@ -18,10 +19,10 @@ postulate IO : ∀ {ℓ} → Type ℓ → Type ℓ
 {-# FOREIGN GHC type AgdaIO a b = IO b #-}
 {-# COMPILE GHC IO = type AgdaIO #-}
 
-postulate mapIO : ∀ {ℓ₁ ℓ₂} {A : Type ℓ₁} {B : Type ℓ₂} → (A → B) → IO A → IO B
-postulate pureIO : ∀ {ℓ} {A : Type ℓ} → A → IO A
-postulate appIO : ∀ {ℓ₁ ℓ₂} {A : Type ℓ₁} {B : Type ℓ₂} → IO (A → B) → IO A → IO B
-postulate bindIO : ∀ {ℓ₁ ℓ₂} {A : Type ℓ₁} {B : Type ℓ₂} → IO A → (A → IO B) → IO B
+private postulate mapIO : ∀ {ℓ} {A B : Type ℓ} → (A → B) → IO A → IO B
+private postulate pureIO : ∀ {ℓ} {A : Type ℓ} → A → IO A
+private postulate appIO : ∀ {ℓ} {A B : Type ℓ} → IO (A → B) → IO A → IO B
+private postulate bindIO : ∀ {ℓ} {A B : Type ℓ} → IO A → (A → IO B) → IO B
 
 {-# COMPILE GHC mapIO = \_ _ _ _ -> fmap #-}
 {-# COMPILE GHC pureIO = \_ _ -> pure #-}
@@ -41,23 +42,25 @@ instance MonadIO : ∀ {ℓ} → Monad {ℓ} IO
 
 MonadIO. _>>=_ = bindIO
 
-postulate putStrLn : String → IO ⊤
-postulate putStr : String → IO ⊤
+postulate putStrLn : ∀ {ℓ} → String → IO {ℓ} ⊤
+postulate putStr : ∀ {ℓ} → String → IO {ℓ} ⊤
 postulate getStr : IO String
 postulate readFile : String → IO String
-postulate writeFile : String → String → IO ⊤
+postulate writeFile : ∀ {ℓ} → String → String → IO {ℓ} ⊤
 postulate getArgs : IO (List String)
+postulate printNat : ∀ {ℓ} → Nat → IO {ℓ} ⊤
 
 {-# FOREIGN GHC import qualified Data.Text #-}
 {-# FOREIGN GHC import qualified Data.Text.IO #-}
 {-# FOREIGN GHC import qualified System.Environment #-}
 
-{-# COMPILE GHC putStrLn = Data.Text.IO.putStrLn #-}
-{-# COMPILE GHC putStr = Data.Text.IO.putStr #-}
+{-# COMPILE GHC putStrLn = \_ -> Data.Text.IO.putStrLn #-}
+{-# COMPILE GHC putStr = \_ -> Data.Text.IO.putStr #-}
 {-# COMPILE GHC getStr = Data.Text.IO.getLine #-}
-{-# COMPILE GHC readFile = \x -> Data.Text.IO.readFile (Data.Text.unpack x) #-}
-{-# COMPILE GHC writeFile = \x -> Data.Text.IO.writeFile (Data.Text.unpack x) #-}
+{-# COMPILE GHC readFile = Data.Text.IO.readFile . Data.Text.unpack #-}
+{-# COMPILE GHC writeFile = \_ -> Data.Text.IO.writeFile . Data.Text.unpack #-}
 {-# COMPILE GHC getArgs = fmap (map Data.Text.pack) System.Environment.getArgs #-}
+{-# COMPILE GHC printNat = \_ -> Data.Text.IO.putStrLn . Data.Text.pack . show #-}
 
 instance SemigroupIO : ∀ {ℓ} {A : Type ℓ} ⦃ _ : Semigroup A ⦄ → Semigroup (IO A)
 

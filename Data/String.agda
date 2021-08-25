@@ -31,4 +31,4 @@ MonoidString. empty = ""
 
 instance EqString : Eq String
 
-EqString. _==_ = primStringEquality
+EqString. _≡ᵇ_ = primStringEquality

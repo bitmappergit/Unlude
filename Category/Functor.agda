@@ -2,7 +2,7 @@ module Category.Functor where
 
 open import Data.Type
 
-record Functor {ℓ₁ ℓ₂} (F : Type ℓ₁ → Type ℓ₂) : Type (lsuc (ℓ₁ ⊔ ℓ₂)) where
+record Functor {ℓ} (F : Type ℓ → Type ℓ) : Type (lsuc ℓ) where
   field map : ∀ {A B} → (A → B) → F A → F B
 
   _<$>_ : ∀ {A B} → (A → B) → F A → F B

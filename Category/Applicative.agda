@@ -3,7 +3,7 @@ module Category.Applicative where
 open import Data.Type
 open import Category.Functor
 
-record Applicative {ℓ₁ ℓ₂} (F : Type ℓ₁ → Type ℓ₂) : Type (lsuc (ℓ₁ ⊔ ℓ₂)) where
+record Applicative {ℓ} (F : Type ℓ → Type ℓ) : Type (lsuc ℓ) where
   infixl 4 _<*>_
 
   field ⦃ super ⦄ : Functor F

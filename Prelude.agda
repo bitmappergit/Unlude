@@ -51,3 +51,9 @@ open import Data.Sequence public
 
 open import Relation.Equality public
 open import Relation.Negation public
+
+open import Data.Fin public
+
+open import Data.Indexable public
+open import Data.Foldable public
+open import Data.Traversable public

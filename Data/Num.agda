@@ -4,19 +4,22 @@ open import Data.Type
 open import Data.Function
 open import Data.Nat
 open import Algebra.Semiring
+open import Data.Unit
 
-record Num {ℓ} (A : Type ℓ) : Type ℓ where
-  field fromNat : Nat → A
+record Num {ℓ} (A : Type ℓ) : Type (lsuc ℓ) where
+  field Constraint : Nat -> Type ℓ
+  field fromNat : (n : Nat) → ⦃ _ : Constraint n ⦄ → A
   field toNat : A → Nat
   
   {-# INLINE fromNat #-}
   {-# INLINE toNat #-}
-
+    
 open Num ⦃ ... ⦄ public
 
 {-# BUILTIN FROMNAT fromNat #-}
 
 instance NumNat : Num Nat
 
-fromNat ⦃ NumNat ⦄ = id
-toNat ⦃ NumNat ⦄ = id
+NumNat. Constraint _ = ⊤
+NumNat. fromNat n = n
+NumNat. toNat n = n

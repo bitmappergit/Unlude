@@ -5,7 +5,7 @@ open import Data.Function
 open import Category.Functor
 open import Category.Applicative
 
-record Monad {ℓ₁ ℓ₂} (M : Type ℓ₁ → Type ℓ₂) : Type (lsuc (ℓ₁ ⊔ ℓ₂)) where
+record Monad {ℓ} (M : Type ℓ → Type ℓ) : Type (lsuc ℓ) where
   infixl 1 _>>=_ _>>_
 
   field ⦃ super ⦄ : Applicative M
