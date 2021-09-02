@@ -1,6 +1,7 @@
 module Prelude where
 
 open import Data.Type public
+open import Data.Core public
 
 open import Data.Unit public
 open import Data.Empty public
@@ -57,3 +58,5 @@ open import Data.Fin public
 open import Data.Indexable public
 open import Data.Foldable public
 open import Data.Traversable public
+
+-- open import Data.Salsa20 public

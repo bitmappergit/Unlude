@@ -3,7 +3,7 @@ module Data.Bool where
 open import Data.Type
 open import Data.Unit
 open import Data.Empty
-open import Data.Core using (Bool; #t; #f) public
+open import Data.Core
 
 not : Bool → Bool
 not #t = #f

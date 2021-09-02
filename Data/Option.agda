@@ -1,10 +1,10 @@
 module Data.Option where
 
 open import Data.Type
+open import Data.Core
 open import Category.Functor
 open import Category.Applicative
 open import Category.Monad
-open import Data.Core using (Option; some; none) public
 
 instance FunctorOption : ∀ {ℓ} → Functor {ℓ} Option
 

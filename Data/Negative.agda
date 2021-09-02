@@ -1,10 +1,10 @@
 module Data.Negative where
 
 open import Data.Type
+open import Data.Core
 open import Algebra.Semiring
 open import Algebra.Ring
 open import Data.Num
-open import Data.Nat
 
 record Negative {ℓ} (A : Type ℓ) : Type (lsuc ℓ) where
   field ⦃ semiring-super ⦄ : Semiring A

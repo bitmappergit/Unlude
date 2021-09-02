@@ -1,8 +1,8 @@
 module Data.Num where
 
 open import Data.Type
+open import Data.Core
 open import Data.Function
-open import Data.Nat
 open import Algebra.Semiring
 open import Data.Unit
 

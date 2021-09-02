@@ -2,7 +2,7 @@ module Data.Product where
 
 open import Data.Type
 open import Data.Function
-open import Data.Core using (Σ; _,_; fst; snd) public
+open import Data.Core
 
 infixr 4 _×_
 

@@ -1,6 +1,7 @@
 module Data.Sequence where
 
 open import Data.Type
+open import Data.Core
 open import Data.Nat
 open import Algebra.Semiring
 open import Algebra.Ring
@@ -28,7 +29,7 @@ tree-index (suc _) (leaf x) = none
 tree-index zero (node x _ _) = some x
 tree-index (suc i) (node {cs} x a b) with i <ᵇ cs
 ... | #t = tree-index i a
-... | #f = tree-index (i ∸ cs) a
+... | #f = tree-index (i ∸ cs) b
 
 tree-update : ∀ {ℓ} {A : Type ℓ} {s} → Nat → A → Tree A s → Option (Tree A s)
 tree-update zero n (leaf _) = some (leaf n)
@@ -62,12 +63,12 @@ _∷ˢ_ {A = A} x xs@((sa , a) ∷ (sb , b) ∷ rest) with sb ≟ sa
 _∷ˢ_ x xs@(_ ∷ []) = (1 , leaf x) ∷ xs
 _∷ˢ_ x [] = (1 , leaf x) ∷ []
 
-head : ∀ {ℓ} {A : Type ℓ} → Seq A → Option A
-head [] = none
-head ((_ , leaf x) ∷ rest) = some x
-head ((_ , node x _ _) ∷ rest) = some x
+headˢ : ∀ {ℓ} {A : Type ℓ} → Seq A → Option A
+headˢ [] = none
+headˢ ((_ , leaf x) ∷ rest) = some x
+headˢ ((_ , node x _ _) ∷ rest) = some x
 
-tail : ∀ {ℓ} {A : Type ℓ} → Seq A → Option (Seq A)
-tail [] = none
-tail ((_ , leaf _) ∷ rest) = some rest
-tail ((_ , node {s} x a b) ∷ rest) = some ((s , a) ∷ (s , b) ∷ rest)
+tailˢ : ∀ {ℓ} {A : Type ℓ} → Seq A → Option (Seq A)
+tailˢ [] = none
+tailˢ ((_ , leaf _) ∷ rest) = some rest
+tailˢ ((_ , node {s} x a b) ∷ rest) = some ((s , a) ∷ (s , b) ∷ rest)

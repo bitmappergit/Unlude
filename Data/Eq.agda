@@ -1,6 +1,7 @@
 module Data.Eq where
 
 open import Data.Type
+open import Data.Core
 open import Data.Bool
 
 record Eq {ℓ} (A : Type ℓ) : Type ℓ where

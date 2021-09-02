@@ -1,6 +1,7 @@
 module Data.Ord where
 
 open import Data.Type
+open import Data.Core
 open import Data.Bool
 open import Data.Eq
 open import Relation.Equality

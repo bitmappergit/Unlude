@@ -1,6 +1,7 @@
 module Data.Fin where
 
 open import Data.Type
+open import Data.Core
 open import Data.Nat
 open import Algebra.Semiring
 open import Relation.Negation

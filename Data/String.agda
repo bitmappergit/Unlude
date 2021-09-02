@@ -1,8 +1,7 @@
 module Data.String where
 
 open import Data.Type
-open import Data.Nat
-open import Data.Bool
+open import Data.Core
 open import Data.List
 open import Data.Char
 open import Algebra.Semigroup

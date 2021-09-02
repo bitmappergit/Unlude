@@ -1,6 +1,7 @@
 module Relation.Nat where
 
 open import Data.Type
+open import Data.Core using (Nat; suc; zero)
 open import Data.Nat
 open import Relation.Equality
 open import Relation.Negation

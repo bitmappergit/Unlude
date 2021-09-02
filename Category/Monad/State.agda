@@ -1,6 +1,7 @@
 module Category.Monad.State where
 
 open import Data.Type
+open import Data.Core
 open import Data.Function
 open import Category.Functor
 open import Category.Applicative

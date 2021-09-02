@@ -1,8 +1,9 @@
 module Relation.Negation where
 
 open import Data.Type
-open import Data.Empty
+open import Data.Core
 open import Data.Bool
+open import Data.Empty
 open import Data.Function
 
 infix 3 ¬_

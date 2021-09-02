@@ -1,6 +1,7 @@
 module Data.Word where
 
 open import Data.Type
+open import Data.Core
 open import Data.Vec
 open import Data.Bool
 open import Data.Function
@@ -92,7 +93,7 @@ OrdWord. _<ᵇ_ [] [] = #f
 
 _<<<_ : ∀ {s} → Word (suc s) → Nat → Word (suc s)
 _<<<_ res times with times
-... | suc c = (last res ∷ but-last res) <<< c
+... | suc c = (last res ∷ butLast res) <<< c
 ... | zero = res
 
 _xor_ : ∀ {s} → Word s → Word s → Word s

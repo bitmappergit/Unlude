@@ -1,6 +1,7 @@
 module Data.List where
 
 open import Data.Type
+open import Data.Core
 open import Data.Option
 open import Category.Functor
 open import Category.Applicative
@@ -9,7 +10,7 @@ open import Algebra.Semigroup
 open import Algebra.Monoid
 open import Data.Foldable
 open import Data.Traversable
-open import Data.Core using (List; _∷_; []) public
+open import Data.Function
 
 instance SemigroupList : ∀ {ℓ} {A : Type ℓ} → Semigroup (List A)
 
@@ -37,15 +38,12 @@ instance MonadList : ∀ {ℓ} → Monad {ℓ} List
 
 MonadList. _>>=_ (x ∷ xs) f = f x <> (xs >>= f)
 MonadList. _>>=_ [] _ = []
-{-
-foldMap : ∀ {ℓ}
-        → {A : Type ℓ}
-        → {F : Type ℓ → Type ℓ}
-        → ⦃ _ : Foldable F ⦄
-        → (A → B → B)
-        → B
-        → T A
-        → B
-foldMap f (x ∷ xs) = f x <> foldMap f xs
-foldMap f [] = empty
--}
+
+instance FoldableList : ∀ {ℓ} → Foldable {ℓ} List
+
+FoldableList. foldr _ v [] = v
+FoldableList. foldr f v (x ∷ xs) = f x (foldr f v xs)
+
+instance TraversableList : ∀ {ℓ} → Traversable {ℓ} List
+
+TraversableList. traverse f = foldr (λ x ys → liftA2 _∷_ (f x) ys) (pure [])

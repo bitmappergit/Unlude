@@ -9,7 +9,7 @@ open import Data.Unit
 open import Data.List
 open import Algebra.Semigroup
 open import Algebra.Monoid
-open import Data.Core using (Nat)
+open import Data.Core
 
 postulate IO : ∀ {ℓ} → Type ℓ → Type ℓ
 

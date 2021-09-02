@@ -1,7 +1,7 @@
 module Data.Function where
 
 open import Data.Type
-open import Data.Core using (Nat; suc; zero)
+open import Data.Core
 
 infixr 9 _$_
 infixr 9 _∘_

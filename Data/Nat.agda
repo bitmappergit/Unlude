@@ -10,13 +10,7 @@ open import Data.Ord
 open import Relation.Negation
 open import Relation.Equality
 open import Data.Empty
-open import Data.Core using (Nat; suc; zero) public
-
-pred : Nat → Nat
-pred (suc x) = x
-pred zero = zero
-
-{-# INLINE pred #-}
+open import Data.Core
 
 nat-plus : Nat → Nat → Nat
 nat-plus zero n = n
@@ -91,12 +85,16 @@ nat-eq (suc x) (suc y) = nat-eq x y
 nat-eq (suc _) zero = #f
 nat-eq zero (suc _) = #f
 
+{-# DISPLAY nat-eq m n = m ≡ᵇ n #-}
+
 {-# BUILTIN NATEQUALS nat-eq #-}
 
 private nat-less : Nat → Nat → Bool
 nat-less _ zero = #f
 nat-less zero (suc _) = #t
 nat-less (suc x) (suc y) = nat-less x y
+
+{-# DISPLAY nat-less m n = m <ᵇ n #-}
 
 {-# BUILTIN NATLESS nat-less #-}
 
@@ -107,3 +105,7 @@ EqNat. _≡ᵇ_ = nat-eq
 instance OrdNat : Ord Nat
 
 OrdNat. _<ᵇ_ = nat-less
+
+double : Nat → Nat
+double (suc n) = suc (suc (double n))
+double zero = zero
