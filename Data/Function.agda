@@ -3,7 +3,7 @@ module Data.Function where
 open import Data.Type
 open import Data.Core
 
-infixr 9 _$_
+infixr 0 _$_
 infixr 9 _∘_
 infixl 1 _&_
 
@@ -83,3 +83,8 @@ repeat (suc c) f = f ∘ repeat c f
 repeat zero _ = id
 
 {-# INLINE repeat #-}
+
+the : ∀ {ℓ} → (A : Type ℓ) → A → A
+the _ v = v
+
+{-# INLINE the #-}

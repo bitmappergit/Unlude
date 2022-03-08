@@ -10,7 +10,7 @@ open import Data.Function
 
 record Traversable {ℓ} (T : Type ℓ → Type ℓ) : Type (lsuc ℓ) where
   field ⦃ super-functor ⦄ : Functor T
-  field ⦃ super-foldable ⦄ : Foldable T
+  -- field ⦃ super-foldable ⦄ : Foldable T
 
   field traverse : {F : Type ℓ → Type ℓ} {A B : Type ℓ} ⦃ _ : Applicative F ⦄ → (A → F B) → T A → F (T B)
 
@@ -23,4 +23,13 @@ record Traversable {ℓ} (T : Type ℓ → Type ℓ) : Type (lsuc ℓ) where
   forM : {A B : Type ℓ} {M : Type ℓ → Type ℓ} ⦃ _ : Monad M ⦄ → T A → (A → M B) → M (T B)
   forM = flip mapM
 
+  forDo : {A B : Type ℓ} {M : Type ℓ → Type ℓ} ⦃ _ : Monad M ⦄ → T A → (A → M B) → M ⊤
+  forDo b f = void (mapM f b)
+
+  mapDo : {A B : Type ℓ} {M : Type ℓ → Type ℓ} ⦃ _ : Monad M ⦄ → (A → M B) → T A → M ⊤
+  mapDo f b = void (mapM f b)
+
+  syntax forDo x (λ y → b) = for y ∈ x := b
+
 open Traversable ⦃ ... ⦄ public
+

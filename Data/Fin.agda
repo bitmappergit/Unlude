@@ -16,10 +16,11 @@ open import Data.Num
 open import Data.Product
 open import Algebra.Semiring
 open import Data.Unit
+open import Data.Sum
 
 data Fin : Nat → Type where
-  suc : ∀ {n} → Fin n → Fin (suc n)
-  zero : ∀ {n} → Fin (suc n)
+  suc : {n : Nat} → Fin n → Fin (suc n)
+  zero : {n : Nat} → Fin (suc n)
 
 Fin-Σ : Type
 Fin-Σ = Σ Nat (λ s → Fin (suc s))
@@ -78,6 +79,7 @@ DecEqFin. _≟_ (suc _) zero = no λ ()
 DecEqFin. _≟_ (suc m) (suc n) with m ≟ n
 ... | yes m≡n = yes (cong suc m≡n)
 ... | no m≢n = no (m≢n ∘ suc-injectiveᶠ)
+
 instance EqFin : ∀ {s} → Eq (Fin s)
 
 EqFin. _≡ᵇ_ zero zero = #t
@@ -92,9 +94,13 @@ OrdFin. _<ᵇ_ zero (suc _) = #t
 OrdFin. _<ᵇ_ (suc _) zero = #f
 OrdFin. _<ᵇ_ (suc m) (suc n) = m <ᵇ n
 
-Fin′ : ∀ {n} → Fin n → Type
-Fin′ i = Fin (toNatᶠ i)
-
-_∸ᶠ_ : ∀ {m} (i : Fin m) (j : Fin′ (suc i)) → Fin (m ∸ toNatᶠ j)
+_∸ᶠ_ : ∀ {m} (i : Fin m) (j : Fin (toNat (suc i))) → Fin (m ∸ toNatᶠ j)
 i     ∸ᶠ zero   = i
 suc i ∸ᶠ suc j  = i ∸ᶠ j
+
+splitAt : {n : Nat} → (m : Nat) → Fin (m + n) → Fin m ⊎ Fin n
+splitAt zero i = inj₂ i
+splitAt (suc m) zero = inj₁ zero
+splitAt (suc m) (suc i) with splitAt m i
+... | inj₁ c = inj₁ (suc c)
+... | inj₂ c = inj₂ c

@@ -35,6 +35,7 @@ evalState m s = fst (runState m s)
 execState : ∀ {ℓ} {S A : Type ℓ} → State S A → S → S
 execState m s = snd (runState m s)
 
+execStateT : ∀ {ℓ} {S A : Type ℓ} {M : Type ℓ → Type ℓ} ⦃ _ : Monad M ⦄ → StateT S M A → 
 instance FunctorStateT : ∀ {ℓ} {S : Type ℓ} {M} ⦃ _ : Monad M ⦄ → Functor (StateT S M)
 
 FunctorStateT. map f m = mkStateT λ s → map (λ (a , x) → (f a , x)) (runStateT m s)

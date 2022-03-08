@@ -1,15 +1,17 @@
 module Category.Monad.IO where
 
 open import Data.Type
+open import Data.Core
 open import Category.Functor
 open import Category.Applicative
 open import Category.Monad
 open import Data.String
 open import Data.Unit
 open import Data.List
+open import Data.Show
 open import Algebra.Semigroup
 open import Algebra.Monoid
-open import Data.Core
+open import Data.Function
 
 postulate IO : ∀ {ℓ} → Type ℓ → Type ℓ
 
@@ -24,10 +26,10 @@ private postulate pureIO : ∀ {ℓ} {A : Type ℓ} → A → IO A
 private postulate appIO : ∀ {ℓ} {A B : Type ℓ} → IO (A → B) → IO A → IO B
 private postulate bindIO : ∀ {ℓ} {A B : Type ℓ} → IO A → (A → IO B) → IO B
 
-{-# COMPILE GHC mapIO = \_ _ _ _ -> fmap #-}
+{-# COMPILE GHC mapIO = \_ _ _ -> fmap #-}
 {-# COMPILE GHC pureIO = \_ _ -> pure #-}
-{-# COMPILE GHC appIO = \_ _ _ _ -> (<*>) #-}
-{-# COMPILE GHC bindIO = \_ _ _ _ -> (>>=) #-}
+{-# COMPILE GHC appIO = \_ _ _ -> (<*>) #-}
+{-# COMPILE GHC bindIO = \_ _ _ -> (>>=) #-}
 
 instance FunctorIO : ∀ {ℓ} → Functor {ℓ} IO
 
@@ -69,3 +71,7 @@ SemigroupIO. _<>_ a b = _<>_ <$> a <*> b
 instance MonoidIO : ∀ {ℓ} {A : Type ℓ} ⦃ _ : Monoid A ⦄ → Monoid (IO A)
 
 MonoidIO. empty = return empty
+
+
+print : ∀ {ℓ} {A : Type ℓ} ⦃ _ : Show A ⦄ → A → IO {ℓ} ⊤
+print = putStrLn ∘ show

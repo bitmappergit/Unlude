@@ -14,6 +14,7 @@ open import Data.Divisible
 open import Data.Negative
 open import Data.Eq
 open import Data.Ord
+open import Data.Show
 open import Data.Unit
 open import Relation.Negation
 open import Relation.Nat
@@ -61,13 +62,14 @@ mutual
           fromNat′ {s = suc _} (suc x) with (suc x % suc one)
           ... | zero = #f ∷ fromNat (suc x / suc one)
           ... | suc _ = #t ∷ fromNat (suc x / suc one)
-
+          {-# INLINE fromNat′ #-}
   NumWord. toNat = toNat′ one
     where toNat′ : ∀ {s} → Nat → Word s → Nat
           toNat′ c (#t ∷ xs) = c + toNat′ (c * suc one) xs
           toNat′ c (#f ∷ xs) = toNat′ (c * suc one) xs
           toNat′ c [] = zro
-
+          {-# INLINE toNat′ #-}
+          
   instance NegativeWord : ∀ {s} → Negative (Word s)
 
   NegativeWord. fromNeg m = negate (fromNat m)
@@ -85,16 +87,19 @@ EqWord. _≡ᵇ_ [] [] = #t
 
 instance OrdWord : ∀ {s} → Ord (Word s)
 
-OrdWord. _<ᵇ_ (#t ∷ xs) (#t ∷ ys) = xs <ᵇ ys
-OrdWord. _<ᵇ_ (#f ∷ xs) (#f ∷ ys) = xs <ᵇ ys
-OrdWord. _<ᵇ_ (#t ∷ xs) (#f ∷ ys) = #f
-OrdWord. _<ᵇ_ (#f ∷ xs) (#t ∷ ys) = #t
-OrdWord. _<ᵇ_ [] [] = #f
+OrdWord. _<ᵇ_ xw yw with xw | yw
+... | #t ∷ xs | #t ∷ ys = xs <ᵇ ys
+... | #f ∷ xs | #f ∷ ys = xs <ᵇ ys
+... | #t ∷ xs | #f ∷ ys = #f
+... | #f ∷ xs | #t ∷ ys = #t
+... | []      | []      = #f
 
 _<<<_ : ∀ {s} → Word (suc s) → Nat → Word (suc s)
 _<<<_ res times with times
 ... | suc c = (last res ∷ butLast res) <<< c
 ... | zero = res
+
+{-# INLINE _<<<_ #-}
 
 _xor_ : ∀ {s} → Word s → Word s → Word s
 _xor_ (#t ∷ xs) (#t ∷ ys) = #f ∷ (xs xor ys)
@@ -102,3 +107,9 @@ _xor_ (#f ∷ xs) (#f ∷ ys) = #f ∷ (xs xor ys)
 _xor_ (#t ∷ xs) (#f ∷ ys) = #t ∷ (xs xor ys)
 _xor_ (#f ∷ xs) (#t ∷ ys) = #t ∷ (xs xor ys)
 _xor_ [] [] = []
+
+{-# INLINE _xor_ #-}
+
+instance ShowWord : ∀ {s} → Show (Word s)
+
+ShowWord. show = show ∘ toNat

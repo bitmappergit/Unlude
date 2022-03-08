@@ -23,8 +23,9 @@ data Vec {ℓ} (A : Type ℓ) : Nat → Type ℓ where
 
 instance FunctorVec : ∀ {ℓ} {s} → Functor {ℓ} (λ A → Vec A s)
 
-FunctorVec. map f (x ∷ xs) = f x ∷ map f xs
-FunctorVec. map _ [] = []
+FunctorVec. map f t with t
+... | x ∷ xs = f x ∷ map f xs
+... | [] = []
 
 replicate : ∀ {ℓ} {s} {A : Type ℓ} → A → Vec A s
 replicate {s = suc x} val = val ∷ replicate {s = x} val
@@ -56,29 +57,38 @@ butLast : ∀ {ℓ} {A : Type ℓ} {s} → Vec A (suc s) → Vec A s
 butLast {s = suc s} (x ∷ xs) = x ∷ butLast {s = s} xs
 butLast (x ∷ []) = []
 
+{-# INLINE butLast #-}
+
 last : ∀ {ℓ} {A : Type ℓ} {s} → Vec A (suc s) → A
 last {s = suc s} (_ ∷ xs) = last {s = s} xs
 last (x ∷ []) = x
+
+{-# INLINE last #-}
 
 zipWith : ∀ {ℓ} {A B C : Type ℓ} {s} → (A → B → C) → Vec A s → Vec B s → Vec C s
 zipWith f (x ∷ xs) (y ∷ ys) = f x y ∷ zipWith f xs ys
 zipWith _ [] [] = []
 
+{-# INLINE zipWith #-}
+
 instance IndexableVec : ∀ {s} → Indexable (λ A → Vec A s) (Fin s)
 
 -- index : ∀ {ℓ} {A : Type ℓ} {s} → Fin s → Vec A s → A
-IndexableVec. index (suc c) (_ ∷ xs) = index c xs
-IndexableVec. index zero (x ∷ xs) = x
+IndexableVec. index idx (x ∷ xs) with idx
+... | suc c = index c xs
+... | zero = x
 
 -- update : ∀ {ℓ} {A : Type ℓ} {s} → Fin s → A → Vec A s → Vec A s
-IndexableVec. update (suc c) n (x ∷ xs) = x ∷ update c n xs
-IndexableVec. update zero n (_ ∷ xs) = n ∷ xs
+IndexableVec. update idx n (x ∷ xs) with idx
+... | suc c = x ∷ update c n xs
+... | zero = n ∷ xs
 
 instance ApplicativeVec : ∀ {ℓ} {s} → Applicative {ℓ} (λ A → Vec A s)
 
 ApplicativeVec. pure x = replicate x
-ApplicativeVec. _<*>_ (f ∷ fs) (x ∷ xs) = f x ∷ (fs <*> xs)
-ApplicativeVec. _<*>_ [] [] = []
+ApplicativeVec. _<*>_ tf tx with tf | tx
+... | f ∷ fs | x ∷ xs = f x ∷ (fs <*> xs)
+... | []     | []     = []
 
 diag : ∀ {ℓ} {s} {A : Type ℓ} → Vec (Vec A s) s → Vec A s
 diag [] = []
@@ -90,16 +100,25 @@ MonadVec. _>>=_ m f = diag (map f m)
 
 instance FoldableVec : ∀ {ℓ} {s} → Foldable {ℓ} (λ A → Vec A s)
 
-FoldableVec. foldr _ v [] = v
-FoldableVec. foldr f v (x ∷ xs) = f x (foldr f v xs)
+FoldableVec. foldr f v t with t
+... | [] = v
+... | x ∷ xs = f x (foldr f v xs)
+
+FoldableVec. foldl f v t with t
+... | [] = v
+... | x ∷ xs = f (foldl f v xs) x
 
 instance TraversableVec : ∀ {ℓ} {s} → Traversable {ℓ} (λ A → Vec A s)
 
-TraversableVec. traverse f [] = pure []
-TraversableVec. traverse f (x ∷ xs) = _∷_ <$> f x <*> traverse f xs
+TraversableVec. traverse f t with t
+... | [] = pure []
+... | x ∷ xs = _∷_ <$> f x <*> traverse f xs
 
-{-
-diag : Vect len (Vect len elem) -> Vect len elem
-diag []             = []
-diag ((x::xs)::xss) = x :: diag (map tail xss)
--}
+open import Relation.Nat
+
+suc-majective : ∀ {m n} → suc m ≤ suc n → m ≤ n
+suc-majective (s≤s x) = x
+
+idx : ∀ {a} {A : Type a} {s : Nat} → (i : Nat) → ⦃ prf : i < s ⦄ → Vec A s → A
+idx zero (x ∷ _) = x
+idx (suc i) ⦃ s≤s prf ⦄ (_ ∷ xs) = idx i ⦃ prf ⦄ xs

@@ -1,6 +1,7 @@
 module Data.Nat where
 
 open import Data.Type
+open import Data.Core
 open import Data.Function
 open import Algebra.Semiring
 open import Data.Divisible
@@ -10,7 +11,8 @@ open import Data.Ord
 open import Relation.Negation
 open import Relation.Equality
 open import Data.Empty
-open import Data.Core
+open import Data.Show
+open import Data.String
 
 nat-plus : Nat → Nat → Nat
 nat-plus zero n = n
@@ -56,10 +58,10 @@ mod-helper k m (suc n) (suc j) = mod-helper (suc k) m n j
 
 {-# BUILTIN NATMODSUCAUX mod-helper #-}
 
-z≢s : ∀ {n} → zero ≡ suc n → ⊥
+z≢s : {n : Nat} → zero ≡ suc n → ⊥
 z≢s ()
 
-suc-injective : ∀ {m n} → suc m ≡ suc n → m ≡ n
+suc-injective : {m n : Nat} → suc m ≡ suc n → m ≡ n
 suc-injective refl = refl
 
 instance DecEqNat : DecEq Nat
@@ -109,3 +111,7 @@ OrdNat. _<ᵇ_ = nat-less
 double : Nat → Nat
 double (suc n) = suc (suc (double n))
 double zero = zero
+
+instance ShowNat : Show Nat
+
+ShowNat. show = primShowNat

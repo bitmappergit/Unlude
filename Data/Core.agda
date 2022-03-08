@@ -40,3 +40,12 @@ record Σ {ℓ₁ ℓ₂} (A : Type ℓ₁) (B : A → Type ℓ₂) : Type (ℓ�
 open Σ public
 
 {-# BUILTIN SIGMA Σ #-}
+
+record Unit {ℓ} : Type ℓ where
+  instance constructor unit
+
+{-# BUILTIN UNIT Unit #-}
+{-# FOREIGN GHC type AgdaUnit a = () #-}
+{-# COMPILE GHC Unit = data AgdaUnit (()) #-}
+
+⊤ = Unit

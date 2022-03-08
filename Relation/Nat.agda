@@ -32,6 +32,33 @@ m+1⇒suc : ∀ {m} → m + one ≡ suc m
 m+1⇒suc {suc _} = cong suc m+1⇒suc
 m+1⇒suc {zero} = refl
 
++-identity : (m : Nat) → m + zero ≡ m
++-identity zero = refl
++-identity (suc m) = cong suc (+-identity m)
+
++-suc : (m n : Nat) → m + suc n ≡ suc (m + n)
++-suc zero _ = refl
++-suc (suc m) n = cong suc (+-suc m n)
+
++-comm : (m n : Nat) → m + n ≡ n + m
++-comm m zero = +-identity m
++-comm m (suc n) rewrite +-suc m n = cong suc (+-comm m n)
+
++-comm-suc : (m n : Nat) → m + suc n ≡ suc (n + m)
++-comm-suc m n rewrite +-suc m n = cong suc (+-comm m n)
+
++-rotate : (m n o : Nat) → m + n + o ≡ o + n + m
++-rotate m zero o
+  rewrite +-identity m
+  rewrite +-identity o = +-comm m o
++-rotate m (suc n) o
+  rewrite +-suc m n
+  rewrite +-suc o n = cong suc (+-rotate m n o)
+
++-assoc : (m n p : Nat) → (m + n) + p ≡ m + (n + p)
++-assoc zero n p = refl
++-assoc (suc m) n p = cong suc (+-assoc m n p)
+
 ≤-pred : ∀ {m n} → suc m ≤ suc n → m ≤ n
 ≤-pred (s≤s m≤n) = m≤n
 

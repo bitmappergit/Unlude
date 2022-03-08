@@ -26,11 +26,7 @@ sym refl = refl
 trans : ∀ {ℓ} {A : Type ℓ} {x y z : A} → x ≡ y → y ≡ z → x ≡ z
 trans refl refl = refl
 
-subst : ∀ {ℓ₁ ℓ₂} {A : Type ℓ₁} (P : A → Type ℓ₂) {x y : A} → x ≡ y → P x → P y
-subst _ refl a = a
-
-cast : ∀ {ℓ} {A B : Type ℓ} → A ≡ B → A → B
-cast = subst id
+subst : ∀ {ℓ₁ ℓ₂} {A : Type ℓ₁} (P : A → Type ℓ₂) {x y : A} → x ≡ 
 
 record DecEq {ℓ} (A : Type ℓ) : Type ℓ where
   field _≟_ : (x : A) → (y : A) → Dec (x ≡ y)

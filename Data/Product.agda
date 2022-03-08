@@ -6,8 +6,8 @@ open import Data.Core
 
 infixr 4 _×_
 
-_×_ : ∀ {ℓ₁ ℓ₂} → Type ℓ₁ → Type ℓ₂ → Type (ℓ₁ ⊔ ℓ₂)
+_×_ : ∀ {a b} → Type a → Type b → Type (a ⊔ b)
 _×_ A B = Σ A (λ _ → B)
 
-∃ : ∀ {ℓ₁ ℓ₂} {A : Type ℓ₁} → (B : A → Type ℓ₂) → Type (ℓ₁ ⊔ ℓ₂)
+∃ : ∀ {a b} {A : Type a} → (B : A → Type b) → Type (a ⊔ b)
 ∃ = Σ _
